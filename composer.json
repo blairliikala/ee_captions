@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mantas-done/subtitles": "^0.3.10"
+    }
+}
