@@ -8,9 +8,9 @@ Uses the [subtitles](https://github.com/mantas-done/subtitles) project.
 
 | Name | Description |
 | - | - |
-| `file` | URL or file path to caption file. (required) |
-
-Note that `file` should include an extension to the caption type.
+| `file` | URL or file path to caption file. |
+| `file_id` | The ExpressionEngine file ID, used to get the server path. |
+| `type` | The format type such as `srt` or `vtt` for implicity setting the parser. |
 
 ## Supported formats
 
@@ -31,14 +31,14 @@ SRT or VTT tend to work the best.  Some WebVTT formats may include extra metadat
 
 | Name | Description |
 | - | - |
-| `text` | URL or file path to caption file. (required) |
+| `text` | The subtitle or caption text of the cue. |
 | `start` | Time in seconds that the cue starts. |
 | `end` |  Time in seconds that the cue ends. |
 | `start_timecode` | Timecode that the cue starts in HH:MM:SS |
 | `end_timecode` | Timecode that the cue end in HH:MM:SS |
 | `raw` | JSON of all the cues |
 
-Example
+## Examples
 
 ```html
 {exp:ee_captions:render file="/files/caption.vtt"}
@@ -47,3 +47,37 @@ Example
 
 {/exp:ee_captions:render}
 ```
+
+### Using EE Tags
+
+```html
+{exp:ee_captions:render file_id="{caption_file}{file_id}{/caption_file}"}
+
+<li>{start_timecode} - {text}</li>
+
+{/exp:ee_captions:render}
+```
+
+### Using a custom text field
+
+In this example, the entry field called `caption` contains a plain textarea field with no formatting with the contents of a caption file.  Wrap the field in a `<template id="captions">` tag.  This HTML tag will hide the captions by default, and be used to render the tag pairs.
+
+```html
+{exp:channel:entries channel="blog"}
+  {exp:ee_captions:render type="vtt"}
+    <template id="captions">
+      {caption}
+    </template>
+    <li>{start_timecode} - {text}</li>
+  {/exp:ee_captions:render}
+{/exp:channel:entries}
+```
+
+## Changelog
+
+1.1
+
+- Added the `file_id` option.
+- Added the template opion.
+
+1.0 Initial Release

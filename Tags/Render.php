@@ -22,26 +22,27 @@ class Render extends AbstractRoute
         }
 
         $file = ee()->TMPL->fetch_param('file', false);
-        $text = ee()->TMPL->fetch_param('text', false);
         $type = ee()->TMPL->fetch_param('type', NULL);
+        $file_id = ee()->TMPL->fetch_param('file_id', NULL);
+
         $markup = ee()->TMPL->fetch_param('markup', "enabled");
 
+        preg_match('/<template id="captions">(.*?)<\/template>/s', $tagdata, $text);
+
+        if ($file_id)
+        {
+            $fileObj = ee('Model')->get('File', $file_id)->first();
+            $file = $fileObj->getAbsolutePath();
+        }
+        
         if ($file)
         {
             $subtitles = Subtitles::load($file, $type);
-            $subtitles_obj = $subtitles->getInternalFormat();
+            $subtitles_obj = $subtitles->getInternalFormat();         
         }
         else if ($text)
         {
-            // If CK Editor is used, this could work.
-            if ($markup != "disabled") {
-                $text = str_replace('<p>', '', $text);
-                $text = str_replace('<br>', PHP_EOL, $text);
-                $text = str_replace('</p>', PHP_EOL.PHP_EOL, $text);
-                $text = str_replace('--&gt;', '-->', $text);
-            }
-                
-            $subtitles = Subtitles::load($text, $type);
+            $subtitles = Subtitles::load($text[1], $type);
             $subtitles_obj = $subtitles->getInternalFormat();
         }
         else

@@ -5,7 +5,7 @@
 return [
     'name'              => 'ee_captions',
     'description'       => 'Render captions in templates.',
-    'version'           => '1.0.0',
+    'version'           => '1.1',
     'author'            => 'Blair Liikala',
     'author_url'        => 'blairliikala.com',
     'namespace'         => 'BlairLiikala\EeCaptions',
