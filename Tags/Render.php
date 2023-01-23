@@ -25,8 +25,6 @@ class Render extends AbstractRoute
         $type = ee()->TMPL->fetch_param('type', NULL);
         $file_id = ee()->TMPL->fetch_param('file_id', NULL);
 
-        $markup = ee()->TMPL->fetch_param('markup', "enabled");
-
         preg_match('/<template id="captions">(.*?)<\/template>/s', $tagdata, $text);
 
         if ($file_id)
