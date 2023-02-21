@@ -75,6 +75,10 @@ In this example, the entry field called `caption` contains a plain textarea fiel
 
 ## Changelog
 
+1.2
+
+- Fixed naming issue.
+
 1.1
 
 - Added the `file_id` option.
